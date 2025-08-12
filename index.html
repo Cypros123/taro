@@ -211,6 +211,9 @@
     }
 
     function select(card, id){
+    // Force set image for card front
+    const faceImg = card.querySelector('.face .art img');
+    if (faceImg) { faceImg.src = faceUrl(id); }
       if (selected.length >= LIMIT) return;
       if (card.classList.contains('locked')) return;
       // 1) флип
