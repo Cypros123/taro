@@ -72,7 +72,7 @@
     .sigil::after{ content:""; position:absolute; inset:12%; border-radius:50%; border:1px solid rgba(217,179,108,.35); }
     .sigil svg{ width:70%; opacity:.9; }
 
-    .face{ transform: rotateY(180deg);
+    .face{ transform: rotateY(180deg); background-size: cover; background-position: center; background-repeat: no-repeat;
       background:
         radial-gradient(140% 120% at 50% -10%, rgba(250,220,150,.10), transparent 60%),
         linear-gradient(160deg, #2b181b, #1b1013 70%);
@@ -143,16 +143,7 @@
     const contbar = document.getElementById('contbar');
     const btn = document.getElementById('btnContinue');
 
-    function faceUrl(id){
-    let url = `/taro/faces/${id}.png?v=7`;
-    console.log('faceUrl called with id:', id);
-    console.log('Loading image:', url);
-    let img = new Image();
-    img.src = url;
-    img.onload = () => console.log('Loaded OK:', url);
-    img.onerror = () => console.log('ERROR loading:', url);
-    return url;
-}
+    function faceUrl(id){ return `faces/${id%22}.png`; }
 
     function computeCardWidth(){
       const vw = Math.min(window.innerWidth, document.documentElement.clientWidth);
@@ -191,6 +182,7 @@
 
       const face = document.createElement('div');
       face.className = 'face';
+      face.style.backgroundImage = `url(${faceUrl(id)})`;
       const art = document.createElement('div');
       art.className = 'art';
       const img = document.createElement('img'); img.src = faceUrl(id); img.alt = 'card';
@@ -211,9 +203,8 @@
     }
 
     function select(card, id){
-    // Force set image for card front
-    const faceImg = card.querySelector('.face .art img');
-    if (faceImg) { faceImg.src = faceUrl(id); }
+  const faceEl = card.querySelector('.face');
+  if(faceEl){ faceEl.style.backgroundImage = `url(${faceUrl(id)})`; }
       if (selected.length >= LIMIT) return;
       if (card.classList.contains('locked')) return;
       // 1) флип
