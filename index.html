@@ -143,30 +143,7 @@
     const contbar = document.getElementById('contbar');
     const btn = document.getElementById('btnContinue');
 
-// === Русские названия карт: 0..77 ===
-const NAMES_RU = [
-  "Шут","Маг","Верховная Жрица","Императрица","Император","Иерофант",
-  "Влюблённые","Колесница","Сила","Отшельник","Колесо Фортуны",
-  "Справедливость","Повешенный","Смерть","Умеренность","Дьявол",
-  "Башня","Звезда","Луна","Солнце","Суд","Мир",
-  "Туз Жезлов","2 Жезлов","3 Жезлов","4 Жезлов","5 Жезлов","6 Жезлов",
-  "7 Жезлов","8 Жезлов","9 Жезлов","10 Жезлов","Паж Жезлов",
-  "Рыцарь Жезлов","Королева Жезлов","Король Жезлов",
-  "Туз Кубков","2 Кубков","3 Кубков","4 Кубков","5 Кубков","6 Кубков",
-  "7 Кубков","8 Кубков","9 Кубков","10 Кубков","Паж Кубков",
-  "Рыцарь Кубков","Королева Кубков","Король Кубков",
-  "Туз Мечей","2 Мечей","3 Мечей","4 Мечей","5 Мечей","6 Мечей",
-  "7 Мечей","8 Мечей","9 Мечей","10 Мечей","Паж Мечей",
-  "Рыцарь Мечей","Королева Мечей","Король Мечей",
-  "Туз Пентаклей","2 Пентаклей","3 Пентаклей","4 Пентаклей","5 Пентаклей","6 Пентаклей",
-  "7 Пентаклей","8 Пентаклей","9 Пентаклей","10 Пентаклей","Паж Пентаклей",
-  "Рыцарь Пентаклей","Королева Пентаклей","Король Пентаклей"
-];
-const idToName = (id) => NAMES_RU[id] || `Карта ${id}`;
-// === /названия ===
-
-
-    function faceUrl(id){ return `faces/${id}.png`; }
+    function faceUrl(id){ return `faces/${id}.jpg`; }
 
     function computeCardWidth(){
       const vw = Math.min(window.innerWidth, document.documentElement.clientWidth);
@@ -303,7 +280,8 @@ const idToName = (id) => NAMES_RU[id] || `Карта ${id}`;
 
     function getSelectedIds(){ return selected.slice(0,3); }
 
-    btn.addEventListener('click', () => { const ids = getSelectedIds(); const payload = { type:'tarot_selection', cards: ids, names: ids.map(idToName) };
+    btn.addEventListener('click', () => {
+      const payload={ type:'tarot_selection', cards:getSelectedIds() };
       if (tg){ tg.sendData(JSON.stringify(payload)); tg.close(); }
       else { alert(JSON.stringify(payload)); }
     });
