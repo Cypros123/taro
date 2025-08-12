@@ -142,6 +142,7 @@
     const rowBottom = document.getElementById('rowBottom');
     const contbar = document.getElementById('contbar');
     const btn = document.getElementById('btnContinue');
+
 // === Русские названия карт: 0..77 ===
 const NAMES_RU = [
   "Шут","Маг","Верховная Жрица","Императрица","Император","Иерофант",
@@ -163,6 +164,7 @@ const NAMES_RU = [
 ];
 const idToName = (id) => NAMES_RU[id] || `Карта ${id}`;
 // === /названия ===
+
 
     function faceUrl(id){ return `faces/${id}.png`; }
 
@@ -301,9 +303,7 @@ const idToName = (id) => NAMES_RU[id] || `Карта ${id}`;
 
     function getSelectedIds(){ return selected.slice(0,3); }
 
-    btn.addEventListener('click', () => {
-      const ids = getSelectedIds();
-      const payload = { type:'tarot_selection', cards: ids, names: ids.map(idToName) };
+    btn.addEventListener('click', () => { const ids = getSelectedIds(); const payload = { type:'tarot_selection', cards: ids, names: ids.map(idToName) };
       if (tg){ tg.sendData(JSON.stringify(payload)); tg.close(); }
       else { alert(JSON.stringify(payload)); }
     });
